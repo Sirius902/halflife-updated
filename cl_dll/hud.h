@@ -480,6 +480,12 @@ private:
 //-----------------------------------------------------
 //
 
+#include "speed.h"
+
+//
+//-----------------------------------------------------
+//
+
 
 class CHud
 {
@@ -571,6 +577,7 @@ public:
 	CHudAmmoSecondary m_AmmoSecondary;
 	CHudTextMessage m_TextMessage;
 	CHudStatusIcons m_StatusIcons;
+	CHudSpeed m_Speed;
 
 	void Init();
 	void VidInit();

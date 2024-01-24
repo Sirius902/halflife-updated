@@ -4223,6 +4223,11 @@ void CBasePlayer::UpdateClientData()
 		MESSAGE_END();
 	}
 
+	// Update speed hud
+	MESSAGE_BEGIN(MSG_ONE, gmsgSpeed, nullptr, edict());
+	WRITE_FLOAT(Length(pev->velocity));
+	MESSAGE_END();
+
 	//Handled anything that needs resetting
 	m_bRestored = false;
 }
