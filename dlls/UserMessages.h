@@ -55,6 +55,6 @@ inline int gmsgStatusValue = 0;
 
 inline int gmsgWeapons = 0;
 
-inline int gmsgSpeed = 0;
+inline int gmsgVelocity = 0;
 
 void LinkUserMessages();

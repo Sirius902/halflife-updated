@@ -66,5 +66,5 @@ void LinkUserMessages()
 
 	gmsgWeapons = REG_USER_MSG("Weapons", 8);
 
-	gmsgSpeed = REG_USER_MSG("Speed", 4);
+	gmsgVelocity = REG_USER_MSG("Velocity", 12);
 }
