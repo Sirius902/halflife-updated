@@ -21,6 +21,7 @@ bool CHudSpeed::Init()
 	HOOK_MESSAGE(Speed);
 
 	m_iSpeed = 0;
+	m_fFade = 0.0f;
 	m_iFlags |= HUD_ACTIVE;
 
 	gHUD.AddHudElem(this);
@@ -35,11 +36,29 @@ bool CHudSpeed::VidInit()
 bool CHudSpeed::Draw(float flTime)
 {
 	int r, g, b;
-	int a = 255, x, y;
+	int a = 0, x, y;
 	int SpeedWidth;
 
 	if (0 != gEngfuncs.IsSpectateOnly())
 		return true;
+
+	// Has speed changed? Flash the speed #
+	if (0 != m_fFade)
+	{
+		m_fFade -= (gHUD.m_flTimeDelta * 20);
+		if (m_fFade <= 0)
+		{
+			a = MIN_ALPHA;
+			m_fFade = 0;
+		}
+
+		// Fade the speed number back to dim
+		a = MIN_ALPHA + (m_fFade / FADE_TIME) * 128;
+	}
+	else
+	{
+		a = MIN_ALPHA;
+	}
 
 	UnpackRGB(r, g, b, RGB_YELLOWISH);
 	ScaleColors(r, g, b, a);
@@ -68,7 +87,12 @@ bool CHudSpeed::MsgFunc_Speed(const char* pszName, int iSize, void* pbuf)
 {
 	BEGIN_READ(pbuf, iSize);
 
-	m_iSpeed = static_cast<int>(READ_FLOAT());
+	const auto speed = static_cast<int>(READ_FLOAT());
+	if (speed != m_iSpeed)
+	{
+		m_iSpeed = speed;
+		m_fFade = FADE_TIME;
+	}
 
 	return true;
 }

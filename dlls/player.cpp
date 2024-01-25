@@ -4225,7 +4225,7 @@ void CBasePlayer::UpdateClientData()
 
 	// Update speed hud
 	MESSAGE_BEGIN(MSG_ONE, gmsgSpeed, nullptr, edict());
-	WRITE_FLOAT(Length(pev->velocity));
+	WRITE_FLOAT(Length(Vector(pev->velocity.x, pev->velocity.y, 0.0f)));
 	MESSAGE_END();
 
 	//Handled anything that needs resetting
